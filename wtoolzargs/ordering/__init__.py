@@ -3,7 +3,7 @@ from wtoolzargs.ordering import parser
 from wtoolzargs.ordering import interpreter
 
 
-def order(model, source):
+def order(model, source, field_mapping={}):
     """
     Returns [sqlalchemy.sql.elements.XYExpression] for given model using
     order DSL.
@@ -14,6 +14,10 @@ def order(model, source):
       sqlalchemy model.
     source: str
       Order DSL (see grammar in details).
+    field_mapping: dict
+      Optional field mapping. Maps field names in source to field names of
+      model. Dict of string keys and string values. Example:
+      {'payloadProperty': 'orm_property'}.
 
     Returns
     -------
@@ -43,4 +47,6 @@ def order(model, source):
 
     tokens = scanner.Scanner(source).scan()
     expression = parser.Parser(tokens).parse()
-    return interpreter.Interpreter(model, expression).interpret()
+    return interpreter.Interpreter(
+        model, expression, field_mapping
+    ).interpret()

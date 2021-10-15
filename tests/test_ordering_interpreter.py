@@ -33,23 +33,28 @@ def parse(tokens):
     return parser.Parser(tokens).parse()
 
 
-def func(source):
-    res = interpreter.Interpreter(Hacker, parse(tokens(source))).interpret()
+def func(args):
+    source, field_mapping = args
+    res = interpreter.Interpreter(
+        Hacker, parse(tokens(source)), field_mapping
+    ).interpret()
     return str(
         [str(e.compile(compile_kwargs={"literal_binds": True})) for e in res]
     )
 
 
-class TestFilteringInterpreter(unittest.TestCase):
+class FilteringInterpreter(unittest.TestCase):
     def test_interpret(self):
         cases = [
-            Case("a asc", "['hacker.a ASC']"),
-            Case("a desc", "['hacker.a DESC']"),
-            Case("a", "['hacker.a ASC']"),
+            Case(("z asc", {"z": "a"}), "['hacker.a ASC']"),
+            Case(("a asc", {}), "['hacker.a ASC']"),
+            Case(("a desc", {}), "['hacker.a DESC']"),
+            Case(("a", {}), "['hacker.a ASC']"),
             Case(
-                "a, b, c", "['hacker.a ASC', 'hacker.b ASC', 'hacker.c ASC']"
+                ("a, b, c", {}),
+                "['hacker.a ASC', 'hacker.b ASC', 'hacker.c ASC']",
             ),
-            Case("z", InterpretError),
+            Case(("z", {}), InterpretError),
         ]
         for e in cases:
             with self.subTest():

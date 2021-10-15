@@ -3,7 +3,7 @@ from wtoolzargs.filtering import parser
 from wtoolzargs.filtering import interpreter
 
 
-def filter_(model, source):
+def filter_(model, source, field_mapping={}, value_mapping={}):
     """
     Returns sqlalchemy.sql.elements.XYExpression for given model using
     filter DSL.
@@ -14,6 +14,17 @@ def filter_(model, source):
       sqlalchemy model.
     source: str
       Filter DSL (see grammar in details).
+    field_mapping: dict
+      Optional field mapping. Maps field names in source to field names of
+      model. Dict of string keys and string values. Example:
+      {'payloadProperty': 'orm_property'}.
+    value_mapping: dict
+      Optional value mapping. Maps values in source to target values by
+      applying a function. Dict of string keys and value functions.
+      Example: {
+        'payloadProperty':
+        lambda value_of_payload_property: value_of_payload_property.upper()
+      }
 
     Returns
     -------
@@ -51,4 +62,6 @@ def filter_(model, source):
 
     tokens = scanner.Scanner(source).scan()
     expression = parser.Parser(tokens).parse()
-    return interpreter.Interpreter(model, expression).interpret()
+    return interpreter.Interpreter(
+        model, expression, field_mapping, value_mapping
+    ).interpret()

@@ -126,7 +126,7 @@ class Scanner(object):
         return self.is_alpha(c) or self.is_digit(c)
 
     def is_digit(self, c):
-        return c >= "0" and c <= "9"
+        return c >= "0" and c <= "9" or c == "-"
 
     def peek(self):
         if self.is_at_end():

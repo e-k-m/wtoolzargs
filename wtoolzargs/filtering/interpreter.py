@@ -13,9 +13,11 @@ InterpretError = exceptions.InterpretError
 
 
 class Interpreter(expressions.Visitor):
-    def __init__(self, model, expression):
+    def __init__(self, model, expression, field_mapping={}, value_mapping={}):
         self.model = model
         self.expression = expression
+        self.field_mapping = field_mapping
+        self.value_mapping = value_mapping
 
     def interpret(self):
         return self.evaluate(self.expression)
@@ -26,26 +28,26 @@ class Interpreter(expressions.Visitor):
 
         if expr.operator.type == TT.EQUAL:
             field = self.field(left)
-            return field == right
+            return field == self.value(left, right)
         elif expr.operator.type == TT.NOT_EQUAL:
             field = self.field(left)
-            return field != right
+            return field != self.value(left, right)
         elif expr.operator.type == TT.GREATER_THAN:
             field = self.field(left)
-            return field > right
+            return field > self.value(left, right)
         elif expr.operator.type == TT.GREATER_THAN_OR_EQUAL:
             field = self.field(left)
-            return field >= right
+            return field >= self.value(left, right)
         elif expr.operator.type == TT.LESS_THAN:
             field = self.field(left)
-            return field < right
+            return field < self.value(left, right)
         elif expr.operator.type == TT.LESS_THAN_OR_EQUAL:
             field = self.field(left)
-            return field <= right
+            return field <= self.value(left, right)
         elif expr.operator.type == TT.LIKE:
             # NOTE: Can you find out what wrong here? :-)
             field = self.field(left)
-            return field.like(str(right))
+            return field.like(self.value(left, right))
 
         elif expr.operator.type == TT.AND:
             return and_(left, right)
@@ -73,6 +75,15 @@ class Interpreter(expressions.Visitor):
 
     def field(self, a):
         model = self.model
-        if not hasattr(model, a):
-            raise InterpretError("No such field '{}' on model.".format(a))
-        return getattr(model, a)
+        if a in self.field_mapping:
+            b = self.field_mapping[a]
+        else:
+            b = a
+        if not hasattr(model, b):
+            raise InterpretError("No such field '{}' on model.".format(b))
+        return getattr(model, b)
+
+    def value(self, field, value):
+        if field in self.value_mapping:
+            return self.value_mapping[field](value)
+        return value
