@@ -2,15 +2,27 @@ import unittest
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext import declarative
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.scoping import scoped_session
+
 
 from wtoolzargs.common import exceptions
+from wtoolzargs.common import mapping
 from wtoolzargs.ordering import interpreter
 from wtoolzargs.ordering import parser
 from wtoolzargs.ordering import scanner
 
 import common
 
-Base = declarative.declarative_base()
+
+DBSession = scoped_session(sessionmaker())
+
+
+class _Base(object):
+    query = DBSession.query_property()
+
+
+Base = declarative.declarative_base(cls=_Base)
 Case = common.Case
 InterpretError = exceptions.InterpretError
 
@@ -36,30 +48,50 @@ def parse(tokens):
 def func(args):
     source, field_mapping = args
     res = interpreter.Interpreter(
-        Hacker, parse(tokens(source)), field_mapping
+        Hacker.query,
+        Hacker,
+        parse(tokens(source)),
+        mapping.Mappings.create_from_dict(field_mapping),
     ).interpret()
-    return str(
-        [str(e.compile(compile_kwargs={"literal_binds": True})) for e in res]
-    )
+    return str(res).replace("\n", "")
 
 
 class FilteringInterpreter(unittest.TestCase):
     def test_interpret(self):
+
+        should_template = (
+            "SELECT hacker.id AS hacker_id, hacker.a AS hacker_a, "
+            "hacker.b AS hacker_b, hacker.c AS hacker_c, "
+            "hacker.d AS hacker_d, hacker.e AS hacker_e FROM "
+            "hacker ORDER BY {order_by}"
+        )
+
         cases = [
-            Case(("z asc", {"z": "a"}), "['hacker.a ASC']"),
-            Case(("a asc", {}), "['hacker.a ASC']"),
-            Case(("a desc", {}), "['hacker.a DESC']"),
-            Case(("a", {}), "['hacker.a ASC']"),
+            Case(
+                ("z asc", {"z": "a"}),
+                should_template.format(order_by="hacker.a ASC"),
+            ),
+            Case(
+                ("a asc", {}), should_template.format(order_by="hacker.a ASC")
+            ),
+            Case(
+                ("a desc", {}),
+                should_template.format(order_by="hacker.a DESC"),
+            ),
+            Case(("a", {}), should_template.format(order_by="hacker.a ASC")),
             Case(
                 ("a, b, c", {}),
-                "['hacker.a ASC', 'hacker.b ASC', 'hacker.c ASC']",
+                should_template.format(
+                    order_by="hacker.a ASC, hacker.b ASC, hacker.c ASC"
+                ),
             ),
             Case(("z", {}), InterpretError),
         ]
+
         for e in cases:
             with self.subTest():
                 e.assert_it(self, func)
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(module="test_ordering_scanner")

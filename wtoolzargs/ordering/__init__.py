@@ -1,15 +1,18 @@
-from wtoolzargs.ordering import scanner
-from wtoolzargs.ordering import parser
+from wtoolzargs.common import mapping
 from wtoolzargs.ordering import interpreter
+from wtoolzargs.ordering import parser
+from wtoolzargs.ordering import scanner
 
 
-def order(model, source, field_mapping={}):
+def order(query, model, source, field_mapping={}):
     """
-    Returns [sqlalchemy.sql.elements.XYExpression] for given model using
-    order DSL.
+    Returns the sqlalchemy query with order_by applied for
+    models order expression.
 
     Paramaters
     ----------
+    query: sqlalchemy query
+      sqlalchemy query.
     model: sqlalchemy model
       sqlalchemy model.
     source: str
@@ -43,10 +46,14 @@ def order(model, source, field_mapping={}):
     a asc
     a desc
     a desc, b desc
+
+    Please note, it supports relationship identifiers like
+    parent.a asc.
     """
 
     tokens = scanner.Scanner(source).scan()
     expression = parser.Parser(tokens).parse()
+    field_mapping = mapping.Mappings.create_from_dict(field_mapping)
     return interpreter.Interpreter(
-        model, expression, field_mapping
+        query, model, expression, field_mapping
     ).interpret()

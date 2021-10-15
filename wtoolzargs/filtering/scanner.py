@@ -120,7 +120,12 @@ class Scanner(object):
         self.add_token(type_)
 
     def is_alpha(self, c):
-        return (c >= "a" and c <= "z") or (c >= "A" and c <= "Z") or c == "_"
+        return (
+            (c >= "a" and c <= "z")
+            or (c >= "A" and c <= "Z")
+            or c == "_"
+            or c == "."
+        )
 
     def is_alpha_numeric(self, c):
         return self.is_alpha(c) or self.is_digit(c)

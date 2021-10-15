@@ -1,15 +1,18 @@
-from wtoolzargs.filtering import scanner
-from wtoolzargs.filtering import parser
+from wtoolzargs.common import mapping
 from wtoolzargs.filtering import interpreter
+from wtoolzargs.filtering import parser
+from wtoolzargs.filtering import scanner
 
 
-def filter_(model, source, field_mapping={}, value_mapping={}):
+def filter_(query, model, source, field_mapping={}, value_mapping={}):
     """
-    Returns sqlalchemy.sql.elements.XYExpression for given model using
-    filter DSL.
+    Returns the sqlalchemy query with filter applied for
+    models order expression.
 
     Paramaters
     ----------
+    query: sqlalchemy query
+      sqlalchemy query.
     model: sqlalchemy model
       sqlalchemy model.
     source: str
@@ -58,10 +61,15 @@ def filter_(model, source, field_mapping={}, value_mapping={}):
     a eq 'a'
     a eq 'a' and b eq 'b'
     a eq not 'a'
+
+    Please note, it supports relationship identifiers like
+    parent.a eq 10.
     """
 
     tokens = scanner.Scanner(source).scan()
     expression = parser.Parser(tokens).parse()
+    field_mapping = mapping.Mappings.create_from_dict(field_mapping)
+    value_mapping = mapping.Mappings.create_from_dict(value_mapping)
     return interpreter.Interpreter(
-        model, expression, field_mapping, value_mapping
+        query, model, expression, field_mapping, value_mapping
     ).interpret()

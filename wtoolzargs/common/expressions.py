@@ -1,4 +1,5 @@
 import abc
+import copy
 
 
 class Visitor(abc.ABC):
@@ -24,7 +25,8 @@ class Visitor(abc.ABC):
 
 
 class Expr(object):
-    pass
+    def copy(self):
+        return copy.deepcopy(self)
 
 
 class Binary(Expr):
