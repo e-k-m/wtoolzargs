@@ -4,7 +4,7 @@
 
 > wtoolzargs contains core filtering and ordering logic for web applications
 
-[Installation](#installation) | [Getting Up And Running](#getting-up-and-running) | [Examples](#examples) | [API](#api) | [See Also](#see-also)
+[Installation](#installation) | [Getting Up And Running](#getting-up-and-running) | [Examples](#examples)
 
 wtoolzargs contains core filtering and ordering logic for web applications. The main feature are:
 
@@ -45,11 +45,3 @@ res = Hacker.query.filter(f).all()
 o = wtoolzargs.order(Hacker, "a asc, b desc")
 res = Hacker.query.filter(f).order_by(*o).all()    
 ```
-
-## API
-
-FIXME
-
-## See Also
-
-FIXME
