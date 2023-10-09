@@ -47,11 +47,9 @@ class Interpreter(expressions.Visitor):
         pass
 
     def visit_identifier_expr(self, expr):
-
         return expr.value
 
     def visit_unary_expr(self, expr):
-
         if self.is_relationship_indentifier(expr):
             return self.relationship_evaluate(expr)
 

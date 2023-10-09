@@ -58,7 +58,6 @@ def func(args):
 
 class FilteringInterpreter(unittest.TestCase):
     def test_interpret(self):
-
         should_template = (
             "SELECT hacker.id AS hacker_id, hacker.a AS hacker_a, "
             "hacker.b AS hacker_b, hacker.c AS hacker_c, "

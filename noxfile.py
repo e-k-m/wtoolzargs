@@ -3,7 +3,7 @@ import nox
 
 REQUIRES = {
     "coverage": ["coverage>=5.0.0,<6.0.0"],
-    "fmt": ["black>=19.10b0,<20.00"],
+    "fmt": ["black>=23.9.1,<24.00"],
     "lint": ["flake8>=3.7.9,<4.0.0"],
 }
 
@@ -19,7 +19,7 @@ def devel(session):
     install(session, "coverage", "fmt", "lint")
 
 
-@nox.session(python=["3.6", "3.7", "3.8", "3.9"])
+@nox.session(python=["3.8", "3.9", "3.10", "3.11"])
 def test(session):
     session.install("-e", ".")
     session.run("python", "-m", "unittest", "discover", "tests")

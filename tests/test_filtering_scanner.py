@@ -30,7 +30,12 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(type_=TT.EQUAL, lexeme="eq", literal=None, line=1),
-                    Token(type_=TT.BOOL, lexeme="True", literal="1", line=1,),
+                    Token(
+                        type_=TT.BOOL,
+                        lexeme="True",
+                        literal="1",
+                        line=1,
+                    ),
                     Token(type_=TT.AND, lexeme="and", literal=None, line=1),
                     Token(
                         type_=TT.IDENTIFIER,
@@ -44,7 +49,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="3.5", literal=3.5, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="3.5",
+                        literal=3.5,
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -58,16 +68,31 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(type_=TT.EQUAL, lexeme="eq", literal=None, line=1),
-                    Token(type_=TT.BOOL, lexeme="False", literal="0", line=1,),
+                    Token(
+                        type_=TT.BOOL,
+                        lexeme="False",
+                        literal="0",
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
             Case(
                 "True eq False",
                 [
-                    Token(type_=TT.BOOL, lexeme="True", literal="1", line=1,),
+                    Token(
+                        type_=TT.BOOL,
+                        lexeme="True",
+                        literal="1",
+                        line=1,
+                    ),
                     Token(type_=TT.EQUAL, lexeme="eq", literal=None, line=1),
-                    Token(type_=TT.BOOL, lexeme="False", literal="0", line=1,),
+                    Token(
+                        type_=TT.BOOL,
+                        lexeme="False",
+                        literal="0",
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -99,7 +124,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.EQUAL, lexeme="eq", literal=None, line=1,),
+                    Token(
+                        type_=TT.EQUAL,
+                        lexeme="eq",
+                        literal=None,
+                        line=1,
+                    ),
                     Token(
                         type_=TT.STRING,
                         lexeme="'Redmond'",
@@ -119,7 +149,10 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.NOT_EQUAL, lexeme="ne", literal=None, line=1,
+                        type_=TT.NOT_EQUAL,
+                        lexeme="ne",
+                        literal=None,
+                        line=1,
                     ),
                     Token(
                         type_=TT.STRING,
@@ -145,7 +178,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="20", literal=20.0, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="20",
+                        literal=20.0,
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -164,7 +202,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="10", literal=10.0, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="10",
+                        literal=10.0,
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -178,9 +221,17 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.LESS_THAN, lexeme="lt", literal=None, line=1,
+                        type_=TT.LESS_THAN,
+                        lexeme="lt",
+                        literal=None,
+                        line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="20", literal=20.0, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="20",
+                        literal=20.0,
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -200,7 +251,10 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.NUMBER, lexeme="100", literal=100.0, line=1,
+                        type_=TT.NUMBER,
+                        lexeme="100",
+                        literal=100.0,
+                        line=1,
                     ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
@@ -221,7 +275,10 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.NUMBER, lexeme="200", literal=200.0, line=1,
+                        type_=TT.NUMBER,
+                        lexeme="200",
+                        literal=200.0,
+                        line=1,
                     ),
                     Token(type_=TT.AND, lexeme="and", literal=None, line=1),
                     Token(
@@ -236,7 +293,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="3.5", literal=3.5, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="3.5",
+                        literal=3.5,
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -255,7 +317,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="3.5", literal=3.5, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="3.5",
+                        literal=3.5,
+                        line=1,
+                    ),
                     Token(type_=TT.OR, lexeme="or", literal=None, line=1),
                     Token(
                         type_=TT.IDENTIFIER,
@@ -270,7 +337,10 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.NUMBER, lexeme="200", literal=200.0, line=1,
+                        type_=TT.NUMBER,
+                        lexeme="200",
+                        literal=200.0,
+                        line=1,
                     ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
@@ -291,7 +361,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.NUMBER, lexeme="3.5", literal=3.5, line=1,),
+                    Token(
+                        type_=TT.NUMBER,
+                        lexeme="3.5",
+                        literal=3.5,
+                        line=1,
+                    ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
@@ -299,7 +374,10 @@ class TestFilteringScanner(unittest.TestCase):
                 "(priority eq 1 or city eq 'Redmond') and price gt 100",
                 [
                     Token(
-                        type_=TT.LEFT_PAREN, lexeme="(", literal=None, line=1,
+                        type_=TT.LEFT_PAREN,
+                        lexeme="(",
+                        literal=None,
+                        line=1,
                     ),
                     Token(
                         type_=TT.IDENTIFIER,
@@ -307,7 +385,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.EQUAL, lexeme="eq", literal=None, line=1,),
+                    Token(
+                        type_=TT.EQUAL,
+                        lexeme="eq",
+                        literal=None,
+                        line=1,
+                    ),
                     Token(type_=TT.NUMBER, lexeme="1", literal=1.0, line=1),
                     Token(type_=TT.OR, lexeme="or", literal=None, line=1),
                     Token(
@@ -316,7 +399,12 @@ class TestFilteringScanner(unittest.TestCase):
                         literal=None,
                         line=1,
                     ),
-                    Token(type_=TT.EQUAL, lexeme="eq", literal=None, line=1,),
+                    Token(
+                        type_=TT.EQUAL,
+                        lexeme="eq",
+                        literal=None,
+                        line=1,
+                    ),
                     Token(
                         type_=TT.STRING,
                         lexeme="'Redmond'",
@@ -324,7 +412,10 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.RIGHT_PAREN, lexeme=")", literal=None, line=1,
+                        type_=TT.RIGHT_PAREN,
+                        lexeme=")",
+                        literal=None,
+                        line=1,
                     ),
                     Token(type_=TT.AND, lexeme="and", literal=None, line=1),
                     Token(
@@ -340,28 +431,39 @@ class TestFilteringScanner(unittest.TestCase):
                         line=1,
                     ),
                     Token(
-                        type_=TT.NUMBER, lexeme="100", literal=100.0, line=1,
+                        type_=TT.NUMBER,
+                        lexeme="100",
+                        literal=100.0,
+                        line=1,
                     ),
                     Token(type_=TT.EOF, lexeme="", literal=None, line=1),
                 ],
             ),
             Case("!", ScanError),
             Case(
-                "\n", [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
+                "\n",
+                [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
             ),
             Case(
-                "\t", [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
+                "\t",
+                [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
             ),
             Case(
-                "\n", [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
+                "\n",
+                [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
             ),
             Case(
-                "\r", [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
+                "\r",
+                [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
             ),
             Case(
-                "  ", [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
+                "  ",
+                [Token(type_=TT.EOF, lexeme="", literal=None, line=1)],
             ),
-            Case("'a", ScanError,),
+            Case(
+                "'a",
+                ScanError,
+            ),
         ]
 
         for e in cases:

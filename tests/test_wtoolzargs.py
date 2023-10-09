@@ -261,7 +261,6 @@ class WToolzFilter(unittest.TestCase):
                 e.assert_it(self, func_filter)
 
     def test_order(self):
-
         should_template = (
             "SELECT hacker.id AS hacker_id, hacker.a AS hacker_a, "
             "hacker.b AS hacker_b, hacker.c AS hacker_c, "
